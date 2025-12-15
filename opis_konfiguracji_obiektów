@@ -1,0 +1,32 @@
+# Opis konfiguracji obiektów Kubernetes
+# Deployment frontend
+
+Deployment frontend został utworzony w przestrzeni nazw frontend. Wykorzystano obraz nginx oraz skonfigurowano trzy repliki aplikacji. Zastosowano mechanizm nodeSelector, aby Pody frontend były uruchamiane wyłącznie na węzłach oznaczonych etykietą role=frontend. W manifeście określono żądania zasobów CPU i pamięci, co umożliwia poprawne działanie autoskalera HPA.
+
+# Deployment backend
+
+Deployment backend został utworzony w przestrzeni nazw backend. Wykorzystano obraz nginx oraz jedną replikę aplikacji. Zastosowano nodeSelector role=backend, dzięki czemu Pod backend uruchamiany jest na tym samym węźle co Pod bazy danych MySQL.
+
+# Pod my-sql
+
+Pod my-sql został utworzony w przestrzeni nazw backend. Wykorzystano obraz mysql:8.0 oraz ustawiono zmienną środowiskową MYSQL_ROOT_PASSWORD w manifeście. Pod został przypisany do węzła oznaczonego etykietą role=backend, co zapewnia jego uruchomienie na tym samym węźle co backend.
+
+# Service
+
+Dla Deploymentu frontend utworzono Service typu NodePort, który umożliwia dostęp do aplikacji z zewnątrz klastra Kubernetes. Dla Deploymentu backend oraz Poda my-sql utworzono Service typu ClusterIP, umożliwiający komunikację wyłącznie wewnątrz klastra.
+
+# NetworkPolicy
+
+W przestrzeni nazw frontend zastosowano politykę sieciową NetworkPolicy, która zezwala Podom frontend na komunikację wyłącznie z Podami backend na porcie 80. W przestrzeni nazw backend zastosowano politykę sieciową umożliwiającą komunikację z Podem my-sql wyłącznie na porcie 3306 oraz komunikację z Podami frontend.
+
+# ResourceQuota
+
+Dla przestrzeni nazw frontend skonfigurowano obiekt ResourceQuota, który ogranicza maksymalną liczbę Podów do 10, dostępne zasoby CPU do 1 oraz pamięć RAM do 1.5 GiB. Dla przestrzeni nazw backend skonfigurowano obiekt ResourceQuota ograniczający liczbę Podów do 3, CPU do 1 oraz pamięć RAM do 1 GiB. Poprawność działania limitów została potwierdzona poleceniem kubectl get resourcequota -A.
+
+# Horizontal Pod Autoscaler (HPA)
+
+Dla Deploymentu frontend skonfigurowano autoskaler HPA. Zakres skalowania ustawiono od 1 do 10 replik, a kryterium skalowania oparto o wykorzystanie CPU na poziomie 50 procent. Obiekt HPA został poprawnie utworzony i powiązany z Deploymentem frontend.
+
+# Test obciążeniowy
+
+Test obciążeniowy polegał na generowaniu żądań HTTP do usługi frontend w celu sprawdzenia reakcji autoskalera HPA oraz zachowania limitów ResourceQuota. Autoskalowanie zostało skonfigurowane poleceniem kubectl autoscale deployment frontend, a stan HPA był obserwowany poleceniem kubectl get hpa -n frontend. Ze względu na niestabilność lokalnego środowiska Minikube, objawiającą się timeoutami TLS podczas komunikacji z apiserverem, bieżące metryki CPU były raportowane jako nieznane. Pomimo tego autoskaler HPA został poprawnie utworzony, a Deployment frontend działał w granicach wcześniej zdefiniowanych limitów zasobów.
