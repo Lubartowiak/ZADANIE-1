@@ -1,4 +1,5 @@
 # Opis konfiguracji obiektów Kubernetes
+
 # Deployment frontend
 
 Deployment frontend został utworzony w przestrzeni nazw frontend. Wykorzystano obraz nginx oraz skonfigurowano trzy repliki aplikacji. Zastosowano mechanizm nodeSelector, aby Pody frontend były uruchamiane wyłącznie na węzłach oznaczonych etykietą role=frontend. W manifeście określono żądania zasobów CPU i pamięci, co umożliwia poprawne działanie autoskalera HPA.
