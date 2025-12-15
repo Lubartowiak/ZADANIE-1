@@ -136,50 +136,38 @@ https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/#how-d
 Przykładowa strategia rollingUpdate
 
 Dla Deploymentu frontend można zastosować następujące parametry strategii aktualizacji:
-
+```
 strategy:
   type: RollingUpdate
   rollingUpdate:
     maxUnavailable: 1
     maxSurge: 1
-
+```
 a) Gwarancja co najmniej 2 aktywnych Podów
-
 Przy początkowej liczbie 3 replik:
-
-maxUnavailable: 1 oznacza, że w trakcie aktualizacji maksymalnie jeden Pod może być niedostępny,
-
-zapewnia to, że co najmniej 2 Pody frontend są zawsze aktywne.
+-maxUnavailable: 1 oznacza, że w trakcie aktualizacji maksymalnie jeden Pod może być niedostępny,
+-zapewnia to, że co najmniej 2 Pody frontend są zawsze aktywne.
 
 b) Brak przekroczenia limitów namespace frontend
-
 Dla przestrzeni nazw frontend obowiązują limity:
-
-maksymalnie 10 Podów,
-
-1 CPU,
-
-1.5 GiB RAM.
+-maksymalnie 10 Podów,
+-1 CPU,
+-1.5 GiB RAM.
 
 Parametr maxSurge: 1 powoduje, że podczas aktualizacji może powstać tylko jeden dodatkowy Pod, co:
-
-nie powoduje przekroczenia limitu liczby Podów,
-
-nie powoduje przekroczenia limitów CPU i RAM, ponieważ każdy Pod ma zdefiniowane niskie requests zasobów.
+-nie powoduje przekroczenia limitu liczby Podów,
+-nie powoduje przekroczenia limitów CPU i RAM, ponieważ każdy Pod ma zdefiniowane niskie requests zasobów.
 
 c) Korelacja strategii rollingUpdate z HPA
 
 Nie ma konieczności modyfikowania konfiguracji autoskalera HPA w związku z zastosowaną strategią rollingUpdate, ponieważ:
-
-HPA skaluje Deployment w granicach 1–10 replik,
-
-strategia rollingUpdate generuje maksymalnie jedną dodatkową replikę,
-
-oba mechanizmy nie powodują konfliktu ani przekroczenia limitów ResourceQuota.
+-HPA skaluje Deployment w granicach 1–10 replik,
+-strategia rollingUpdate generuje maksymalnie jedną dodatkową replikę,
+-oba mechanizmy nie powodują konfliktu ani przekroczenia limitów ResourceQuota.
 
 W związku z tym konfiguracja HPA może pozostać bez zmian.
 
 # Uzasadnienie doboru parametrów
 
-Zastosowana strategia rollingUpdate zapewnia ciągłość działania aplikacji frontend podczas aktualizacji, nie powodując przerw w dostępności usługi. Jednocześnie dobrane parametry nie naruszają wcześniej zdefiniowanych ograniczeń zasobów oraz są w pełni kompatybilne z działającym autoskalerem HPA.
+Zastosowana strategia rollingUpdate zapewnia nam ciągłość działania aplikacji frontend podczas aktualizacji, nie powodując przerw w dostępności usługi. Jednocześnie dobrane parametry nie naruszają wcześniej zdefiniowanych ograniczeń zasobów oraz są w pełni kompatybilne z działającym autoskalerem HPA.
 
