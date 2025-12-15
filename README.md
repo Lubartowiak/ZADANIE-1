@@ -54,6 +54,7 @@ kubectl get svc -n backend
 ```
 
 <img width="791" height="433" alt="image" src="https://github.com/user-attachments/assets/0a37d06c-7a0a-4743-bb0f-1ce235131794" />
+<img width="792" height="172" alt="image" src="https://github.com/user-attachments/assets/5c4c3ee2-4f42-4b17-a733-78655f72845c" />
 
 # Wdrożenie frontend
 ```
@@ -70,24 +71,30 @@ kubectl get svc -n frontend
 <img width="796" height="196" alt="image" src="https://github.com/user-attachments/assets/d3e336c2-72dc-4c81-bbb5-60cbc65d0dda" />
 
 
-Zastosowanie NetworkPolicy
+# Zastosowanie NetworkPolicy
+```
 kubectl apply -f network/
 
 kubectl get networkpolicy -A
+```
+
+<img width="572" height="112" alt="image" src="https://github.com/user-attachments/assets/4b98be10-d045-4aab-93d9-6276e1b4e2fc" />
 
 
-Screen: frontend-policy oraz backend-policy
-
-Konfiguracja ResourceQuota
+# Konfiguracja ResourceQuota
+```
 kubectl create -f limits/frontend-quota.yaml --validate=false
 kubectl create -f limits/backend-quota.yaml --validate=false
 
 kubectl get resourcequota -A
+```
+
+<img width="767" height="245" alt="image" src="https://github.com/user-attachments/assets/8040ff41-0e5c-432d-97f5-8f72c57c4a31" />
+<img width="786" height="63" alt="image" src="https://github.com/user-attachments/assets/5f68ea77-98e5-4475-9949-677a68266ce5" />
 
 
-Screen (kluczowy): limity dla namespace frontend i backend
-
-Konfiguracja HPA dla frontend
+# Konfiguracja HPA dla frontend
+```
 kubectl autoscale deployment frontend \
   -n frontend \
   --cpu-percent=50 \
@@ -95,13 +102,16 @@ kubectl autoscale deployment frontend \
   --max=10
 
 kubectl get hpa -n frontend
+```
 
+<img width="795" height="185" alt="image" src="https://github.com/user-attachments/assets/b8936e19-4a0f-47b3-be15-0a0e33779535" />
 
-Screen: HPA z zakresem 1–10 replik
 
 Test obciążeniowy
 kubectl get hpa -n frontend
 kubectl get resourcequota -A
 
 
-Screen: status HPA oraz ResourceQuota
+<img width="795" height="207" alt="image" src="https://github.com/user-attachments/assets/e1a79d14-670e-43c0-9ac9-f1b19be9ab2e" />
+<img width="795" height="156" alt="image" src="https://github.com/user-attachments/assets/d814dc15-84ff-49bb-93eb-2759e7707299" />
+
