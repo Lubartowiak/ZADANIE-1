@@ -125,7 +125,7 @@ kubectl get resourcequota -A
 # Zadanie 1 – część nieobowiązkowa
 # 1. Czy możliwa jest aktualizacja aplikacji frontend, gdy działa HPA?
 
-TAK, możliwa jest aktualizacja aplikacji frontend (np. zmiana wersji obrazu kontenera), nawet gdy Deployment jest objęty autoskalerem HPA.
+Tak, możliwa jest aktualizacja aplikacji frontend (np. zmiana wersji obrazu kontenera), nawet gdy Deployment jest objęty autoskalerem HPA.
 
 HPA skaluje jedynie liczbę replik Deploymentu w odpowiedzi na metryki (np. CPU), natomiast sam proces aktualizacji obrazu kontenera jest realizowany przez mechanizm Deployment oraz strategię rollingUpdate. Oba mechanizmy działają niezależnie i są ze sobą kompatybilne.
 
