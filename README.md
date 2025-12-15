@@ -1,10 +1,4 @@
 # Zadanie 1 – Kubernetes (część obowiązkowa)
-Środowisko:
-Ubuntu 24.04
-Minikube v1.37.0
-Kubernetes v1.34.0
-Docker
-CNI: Calico
 
 # Utworzenie klastra Kubernetes (3 węzły)
 ```minikube start \
