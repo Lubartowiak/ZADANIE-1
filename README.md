@@ -145,14 +145,14 @@ strategy:
 ```
 a) Gwarancja co najmniej 2 aktywnych Podów
 Przy początkowej liczbie 3 replik:
--maxUnavailable: 1 oznacza, że w trakcie aktualizacji maksymalnie jeden Pod może być niedostępny,
--zapewnia to, że co najmniej 2 Pody frontend są zawsze aktywne.
+-maxUnavailable: 1 oznacza, że w trakcie aktualizacji maksymalnie jeden Pod może być niedostępny,<br>
+-zapewnia to, że co najmniej 2 Pody frontend są zawsze aktywne.<br>
 
 b) Brak przekroczenia limitów namespace frontend
 Dla przestrzeni nazw frontend obowiązują limity:
--maksymalnie 10 Podów,
--1 CPU,
--1.5 GiB RAM.
+-maksymalnie 10 Podów,<br>
+-1 CPU,<br>
+-1.5 GiB RAM.<br>
 
 Parametr maxSurge: 1 powoduje, że podczas aktualizacji może powstać tylko jeden dodatkowy Pod, co:
 -nie powoduje przekroczenia limitu liczby Podów,
