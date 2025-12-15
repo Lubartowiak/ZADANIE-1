@@ -109,10 +109,11 @@ kubectl get hpa -n frontend
 <img width="795" height="185" alt="image" src="https://github.com/user-attachments/assets/b8936e19-4a0f-47b3-be15-0a0e33779535" />
 
 
-Test obciążeniowy
+# Test obciążeniowy
+```
 kubectl get hpa -n frontend
 kubectl get resourcequota -A
-
+```
 
 <img width="795" height="207" alt="image" src="https://github.com/user-attachments/assets/e1a79d14-670e-43c0-9ac9-f1b19be9ab2e" />
 <img width="795" height="156" alt="image" src="https://github.com/user-attachments/assets/d814dc15-84ff-49bb-93eb-2759e7707299" />
