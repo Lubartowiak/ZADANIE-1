@@ -24,6 +24,8 @@ kubectl get nodes
 kubectl create namespace frontend
 kubectl create namespace backend
 ```
+<img width="541" height="66" alt="image" src="https://github.com/user-attachments/assets/d1eafd5d-2c28-4d89-871e-36327e63fe6b" />
+
 # Oznaczenie węzłów etykietami
 ```
 kubectl label node minikube role=backend
