@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-sql
+  namespace: backend
+  labels:
+    app: mysql
+spec:
+  nodeSelector:
+    role: backend
+  containers:
+  - name: mysql
+    image: mysql:8.0
+    env:
+    - name: MYSQL_ROOT_PASSWORD
+      value: root
+    ports:
+    - containerPort: 3306
+
