@@ -111,10 +111,13 @@ kubectl get hpa -n frontend
 
 # Test obciążeniowy
 ```
+Uruchomienie testu obciążeniowego
+while true; do wget -qO- http://frontend-svc.frontend.svc.cluster.local; done
 kubectl get hpa -n frontend
 kubectl get resourcequota -A
 ```
 
 <img width="795" height="207" alt="image" src="https://github.com/user-attachments/assets/e1a79d14-670e-43c0-9ac9-f1b19be9ab2e" />
 <img width="795" height="156" alt="image" src="https://github.com/user-attachments/assets/d814dc15-84ff-49bb-93eb-2759e7707299" />
+<img width="818" height="491" alt="image" src="https://github.com/user-attachments/assets/3c167192-4d15-41b6-ac45-c8bc58a820b9" />
 
