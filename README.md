@@ -144,28 +144,28 @@ strategy:
     maxSurge: 1
 ```
 a) Gwarancja co najmniej 2 aktywnych Podów
-Przy początkowej liczbie 3 replik:
+Przy początkowej liczbie 3 replik:<br>
 -maxUnavailable: 1 oznacza, że w trakcie aktualizacji maksymalnie jeden Pod może być niedostępny,<br>
 -zapewnia to, że co najmniej 2 Pody frontend są zawsze aktywne.<br>
 
-b) Brak przekroczenia limitów namespace frontend
-Dla przestrzeni nazw frontend obowiązują limity:
+b) Brak przekroczenia limitów namespace frontend<br>
+Dla przestrzeni nazw frontend obowiązują limity:<br>
 -maksymalnie 10 Podów,<br>
 -1 CPU,<br>
 -1.5 GiB RAM.<br>
 
-Parametr maxSurge: 1 powoduje, że podczas aktualizacji może powstać tylko jeden dodatkowy Pod, co:
--nie powoduje przekroczenia limitu liczby Podów,
--nie powoduje przekroczenia limitów CPU i RAM, ponieważ każdy Pod ma zdefiniowane niskie requests zasobów.
+Parametr maxSurge: 1 powoduje, że podczas aktualizacji może powstać tylko jeden dodatkowy Pod, co:<br>
+-nie powoduje przekroczenia limitu liczby Podów,<br>
+-nie powoduje przekroczenia limitów CPU i RAM, ponieważ każdy Pod ma zdefiniowane niskie requests zasobów.<br>
 
-c) Korelacja strategii rollingUpdate z HPA
+c) Korelacja strategii rollingUpdate z HPA<br>
 
-Nie ma konieczności modyfikowania konfiguracji autoskalera HPA w związku z zastosowaną strategią rollingUpdate, ponieważ:
--HPA skaluje Deployment w granicach 1–10 replik,
--strategia rollingUpdate generuje maksymalnie jedną dodatkową replikę,
--oba mechanizmy nie powodują konfliktu ani przekroczenia limitów ResourceQuota.
+Nie ma konieczności modyfikowania konfiguracji autoskalera HPA w związku z zastosowaną strategią rollingUpdate, ponieważ:<br>
+-HPA skaluje Deployment w granicach 1–10 replik,<br>
+-strategia rollingUpdate generuje maksymalnie jedną dodatkową replikę,<br>
+-oba mechanizmy nie powodują konfliktu ani przekroczenia limitów ResourceQuota.<br>
 
-W związku z tym konfiguracja HPA może pozostać bez zmian.
+W związku z tym konfiguracja HPA może pozostać bez zmian.<br>
 
 # Uzasadnienie doboru parametrów
 
